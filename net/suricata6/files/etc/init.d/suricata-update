@@ -1,0 +1,46 @@
+#!/bin/sh /etc/rc.common
+
+START=99
+STOP=10
+
+USE_PROCD=1
+PROG=/usr/bin/suricata-update
+
+validate_suricata_section() {
+        uci_load_validate suricata update "$1" "$2" \
+                'rulespath:string' \
+                'reload:bool' \
+                'add_sources_on_startup:bool' \
+                'enabled:bool'
+}
+
+start_service() {
+        config_load suricata
+        config_get rulespath update rulespath
+        config_get reload update reload
+        config_get add_sources_on_startup update add_sources_on_startup
+        config_get enabled update enabled
+
+        validate_suricata_section suricata || {
+                echo "validation failed"
+                return 1
+        }
+
+        procd_open_instance
+	[ $rulespath = "/var/lib/suricata/rules" ] && \
+	  procd_set_param command $PROG --reload-command "/etc/init.d/suricata restart"  || \
+	  procd_set_param command $PROG -o $rulespath --reload-command "/etc/init.d/suricata restart"
+        procd_close_instance
+}
+
+stop_service()
+{
+        service_stop ${PROG}
+}
+
+service_triggers()
+{
+        procd_add_reload_trigger "suricata-update"
+        procd_add_validation validate_suricata_section
+}
+

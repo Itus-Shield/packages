@@ -1,0 +1,24 @@
+
+config suricata 'service'
+	option scan_mode 'af-packet'
+	option interface 'eth0'
+	option config_file '/etc/suricata/suricata.yaml'
+	option logdir '/var/log/suricata'
+	option pidfile '/var/log/suricata.pid'
+	option rules_file '/var/lib/suricata/rules/suricata.rules'
+	option queue_size 2
+	option verbose 0
+config suricata 'update'
+	option rulespath '/var/lib/suricata/rules'
+	option reload '0'
+	option add_sources_on_startup '1'
+	option enabled '1'
+	list sources 'et/open'
+	list sources 'oisf/trafficid'
+	list sources 'ptresearch/attackdetection'
+	list sources 'sslbl/ssl-fp-blacklist'
+	list sources 'sslbl/ja3-fingerprints'
+	list sources 'etnetera/aggressive'
+	list sources 'tgreen/hunting'
+	list sources 'scwx/security'
+

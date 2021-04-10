@@ -20,7 +20,7 @@ PKG_INSTALL:=1
 PKG_FIXUP:=autoreconf
 
 PKG_MAINTAINER:=CZ.NIC <packaging@turris.cz>
-PKG_LICENSE:=BSD 3-Clause
+PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=LICENSE
 PKG_CPE_ID:=cpe:/a:oisf:libhtp
 
@@ -52,4 +52,3 @@ define Package/libhtp/install
 endef
 
 $(eval $(call BuildPackage,libhtp))
-

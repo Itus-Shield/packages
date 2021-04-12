@@ -95,7 +95,7 @@ define Package/suricata6
     DEPENDS:=@!SMALL_FLASH @!LOW_MEMORY_FOOTPRINT +jansson +libhtp +libpcre +libyaml +libpcap +libcap-ng \
         +nspr +libnss +liblz4 +libatomic +libnet-1.2.x \
 	+SURICATA_ENABLE_NFLOG:libnetfilter-log \
-  	+SURICATA_ENABLE_NFQUEUE:libnetfilter-queue  \
+  	+SURICATA_ENABLE_NFQUEUE:libnetfilter-queue +SURICATA_ENABLE_NFQUEUE:iptables-mod-nfqueue \
   	+SURICATA_ENABLE_HIREDIS:libhiredis +SURICATA_ENABLE_HIREDIS:libevent2 \
   	+SURICATA_ENABLE_LIBMAGIC:file \
   	+SURICATA_ENABLE_GEOIP:libmaxminddb \
